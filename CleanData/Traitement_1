@@ -1,0 +1,157 @@
+---
+title: "1 er traitement"
+output: html_notebook
+---
+1- Clean names
+2- nettoyer les 3 jeu de données conso
+3- modifier et nettoyer les 3 prod (pour avoir prord total )
+
+```{r}
+library(stringr)
+library(forcats)
+library(tidyr)
+library(dplyr)
+```
+
+
+1)
+```{r}
+cleanNames<-function(df){
+cn<-colnames(df)
+cn_new<-cn %>% str_trim() %>% str_to_lower() %>%
+  str_replace_all(pattern = "\\.", replacement = "_") %>%
+  str_replace_all(pattern = '[éèê]+', replacement = "e") %>%
+  str_replace_all(pattern = '[î]+', replacement = "i") %>%
+  str_replace_all(pattern = '[à]+', replacement = "a") %>%
+  str_replace_all(pattern = '[ûù]+', replacement = "u") %>%
+  str_replace_all(pattern = "[:blank:]+", replacement = "_") 
+  colnames(df)<-cn_new
+df
+}
+```
+2)
+importation des données: 
+
+2-1 communes :
+```{r}
+conso_commune <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//conso-commune.csv",sep = ";",encoding = "UTF-8")
+conso_commune <- conso_commune[c(1,3,2,8,7,10,9,12,15,16)]
+conso_commune <- cleanNames(conso_commune)
+saveRDS(conso_commune, "conso_commune_clean.RDS")
+
+
+```
+
+2-2 departement:
+```{r}
+conso_departement<-read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//consommation-electrique-par-secteur-dactivite-departement-2.csv",sep = ";",encoding = "UTF-8")
+conso_departement_t <- conso_departement[c(1,3,2,5,4,7,10,11)]
+
+
+conso_departement_t<- cleanNames(conso_departement_t)
+saveRDS(conso_departement_t, "conso_departement_clean.RDS")
+
+
+```
+
+2-3 Regions : 
+```{r}
+conso_region<-read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//consommation-electrique-par-secteur-dactivite-region.csv",sep = ";",encoding = "UTF-8")
+
+conso_region_t<-conso_region[c(1,3,2,5,8,9)]
+conso_region_t <- cleanNames(conso_region_t)
+saveRDS(conso_region_t, "conso_region_clean.RDS")
+
+
+```
+
+
+
+3 - production:
+
+2-1 prod commune
+
+```{r}
+prod_commune <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-commune.csv",sep = ";",encoding = "UTF-8")
+prod_commune<-cleanNames(prod_commune)
+
+```
+
+Traitement pour avoir la production toatle:
+```{r}
+prod_commune_large <- prod_commune
+prods_c <- prod_commune_large %>%
+    select("annee", "nom_departement", "code_departement",
+           "nom_region", "code_region","nom_commune","code_commune",
+           starts_with("energie_produite")) %>%
+    tidyr::pivot_longer(- c("annee", "nom_departement", "code_departement","nom_region", "code_region","nom_commune","code_commune"),
+                        values_to = "prod_mwh",
+                        names_to = "type"
+    ) %>%
+    dplyr::mutate(type = type %>%
+               stringr::str_replace_all(pattern = "energie_produite_annuelle_|mwh|__", replacement = ""))
+```
+
+```{r}
+#save prods_commune:
+saveRDS(prods_c, "prods_commune_clean.RDS")
+
+
+```
+3-2 prod departement :
+```{r}
+prod_departement <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-departement-2.csv",sep = ";",encoding = "UTF-8")
+prod_departement <- cleanNames(prod_departement)
+
+
+```
+
+```{r}
+prod_departement_large <- prod_departement
+prods_d <- prod_departement_large %>%
+    select("annee", "nom_departement", "code_departement",
+           "nom_region", "code_region",
+           starts_with("energie_produite")) %>%
+    tidyr::pivot_longer(- c("annee", "nom_departement", "code_departement","nom_region", "code_region"),
+                        values_to = "prod_mwh",
+                        names_to = "type"
+    ) %>%
+    mutate(type = type %>%
+               stringr::str_replace_all(pattern = "energie_produite_annuelle_|mwh|__", replacement = ""))
+
+```
+
+```{r}
+#save
+saveRDS(prods_d, "prods_departement_clean.RDS")
+
+```
+
+3-3 production region : 
+```{r}
+prod_region <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-region.csv",sep = ";",encoding = "UTF-8")
+prod_region <- cleanNames(prod_region)
+
+```
+
+```{r}
+prod_region_large <- prod_region
+prods_r <- prod_region_large %>%
+    select("annee",
+           "nom_region", "code_region",
+           starts_with("energie_produite")) %>%
+    tidyr::pivot_longer(-c("annee","nom_region","code_region"),
+                        values_to = "prod_mwh",
+                        names_to = "type"
+    ) %>%
+    mutate(type = type %>%
+               stringr::str_replace_all(pattern = "energie_produite_annuelle_|mwh|__", replacement = ""))
+
+```
+
+```{r}
+#save
+saveRDS(prods_r, "prods_region_clean.RDS")
+
+```
+
