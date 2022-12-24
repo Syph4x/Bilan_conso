@@ -1,0 +1,101 @@
+---
+title: "clean df projet"
+author: "Bourennani Syphax"
+date: "13/12/2022"
+output: html_document
+---
+
+```{r}
+# package: 
+library(stringr)
+library(forcats)
+library(tidyr)
+library(Dict)
+```
+
+```{r}
+# fonction clean_names and cleanNames() pour clean les jdd
+clean_Names<-function(string){
+
+  string_c<- string %>% str_trim() %>% str_to_lower() %>%
+  str_replace_all(pattern = "\\.", replacement = "_") %>%
+  str_replace_all(pattern = "-", replacement = "_") %>%
+  str_replace_all(pattern = '[éèê]+', replacement = "e") %>%
+  str_replace_all(pattern = '[î]+', replacement = "i") %>%
+  str_replace_all(pattern = '[à]+', replacement = "a") %>%
+  str_replace_all(pattern = '[ûù]+', replacement = "u") %>%
+  str_replace_all(pattern = "[:blank:]+", replacement = "_") 
+  
+return(string_c)
+}
+# test
+clean_Names("grand-est")
+```
+
+```{r}
+#import Data: ( de traitement 1)
+#Conso 
+Conso_secteur <-Dict$new(
+    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//conso_region_clean.rds"),
+    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//conso_departement_clean.rds"),
+    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//conso_commune_clean.rds")
+)
+#2- prod
+Prod_maille <-Dict$new(
+    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_region_clean.rds"),
+    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_departement_clean.rds"),
+    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_commune_clean.rds")
+)
+
+```
+
+1-clean Conso:
+```{r}
+region_c <- Conso_secteur$values[[1]]
+departement_c  <- Conso_secteur$values[[2]]
+commune_c <- Conso_secteur$values[[3]]
+
+#test avec 1000 obs
+#commune_c<- Conso_secteur$values[[3]][1:1000,]
+
+nom_region_c <- sapply(region_c$nom_region,FUN = clean_Names)
+nom_department_c <- sapply(departement$nom_departement,FUN = clean_Names)
+nom_commune_c <- sapply(commune_c$nom_commune,FUN = clean_Names)
+
+region_c["nom_region"] <- nom_region_c
+departement_c["nom_departement"] <- nom_department_c
+commune_c["nom_commune"] <- nom_commune_c
+```
+
+2-Prod:
+```{r}
+region_p <- Prod_maille$values[[1]]
+departement_p <- Prod_maille$values[[2]]
+commune_p <- Prod_maille$values[[3]]
+commune_p <- commune_p %>% select(1,6,7,2,3,4,5,8,9)
+
+#test avec 1000 obs 
+#commune_p <-commune_p[1:1000,]
+
+nom_region_p <- sapply(region_p$nom_region,FUN = clean_Names)
+nom_departement_p <- sapply(departement_p$nom_departement,FUN = clean_Names)
+nom_commune_p <- sapply(commune_p$nom_commune,FUN = clean_Names)
+
+region_p["nom_region"] <- nom_region_p
+departement_p["nom_departement"] <- nom_departement_p
+commune_p["nom_commune"] <- nom_commune_p
+
+
+
+```
+3 -enregistrement:
+```{r}
+saveRDS(commune_c , "conso_commune_clean.RDS")
+saveRDS(departement_c, "conso_departemnt_clean.RDS")
+saveRDS(region_c, "conso_region_clean.RDS")
+
+saveRDS(commune_p, "prod_commune_clean.RDS")
+saveRDS(departement_p, "prod_departement_clean.RDS")
+saveRDS(region_p, "prod_region_clean.RDS")
+
+
