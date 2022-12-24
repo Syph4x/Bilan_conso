@@ -15,4 +15,10 @@ https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dacti
 https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dactivite-departement/export/
 https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dactivite-commune/export/
 
+1) telecharger les données
+2) lancer le script Traitement_1
+3) lancer le script Traitement_2
+4) lancer le script Bilan_Conso
+
+
 Fait par Charline Ikram et Syphax
