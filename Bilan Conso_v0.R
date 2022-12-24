@@ -229,7 +229,10 @@ server <- function(session,input, output) {
       }
     )
     traceback()
-  
+  # à faire: 
+  #  estetique
+  #  cree les deux onglets (tab)
+  #  collectivité moyenne france ???
 }
 
 
