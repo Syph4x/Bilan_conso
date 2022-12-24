@@ -93,7 +93,7 @@ prods_c <- prod_commune_large %>%
 ```
 
 ```{r}
-#save prods_commune:
+# save prods_commune:
 saveRDS(prods_c, "prods_commune_clean.RDS")
 
 
@@ -122,7 +122,7 @@ prods_d <- prod_departement_large %>%
 ```
 
 ```{r}
-#save
+#s ave
 saveRDS(prods_d, "prods_departement_clean.RDS")
 
 ```
