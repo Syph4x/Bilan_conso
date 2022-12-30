@@ -9,15 +9,15 @@ library(plotly)
 #DATA:
 #1- Conso : Clean
 Conso_secteur <-Dict$new(
-    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_region_clean.RDS"),
-    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_departemnt_clean.RDS"),
-    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_commune_clean.RDS")
+    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_region_clean2.RDS"),
+    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_departemnt_clean2.RDS"),
+    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//conso_commune_clean2.RDS")
 )
 #2- prod :  Clean:
 Prod_maille <-Dict$new(
-    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_region_clean.RDS"),
-    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_departement_clean.RDS"),
-    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_commune_clean.RDS")
+    region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_region_clean2.RDS"),
+    departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_departement_clean2.RDS"),
+    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_commune_clean2.RDS")
 )
 
 #Input choices : 
