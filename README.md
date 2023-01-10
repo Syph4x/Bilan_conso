@@ -15,10 +15,15 @@ https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dacti
 https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dactivite-departement/export/
 https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dactivite-commune/export/
 
-1) telecharger les données
-2) lancer le script Traitement_1
-3) lancer le script Traitement_2
-4) lancer le script Bilan_Conso_vo.R
+1) DATA : 
+
+    - Soit telecharger les données traitées (RDS) via ce lien: 
+    https://mega.nz/folder/IipCWYAA#j8qggCcNp56fbRqBlL445A
+    
+    - Soit telecharger les csv  et lancé les deux scripte (Traitement_1 ensuite Traitement_2 )  ( qui prennent du temps a complier )
+    
+
+2) Lancer le script Bilan_Conso_vo.R
 
 
 Fait par Charline Ikram et Syphax
