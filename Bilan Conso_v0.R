@@ -17,7 +17,7 @@ Conso_secteur <-Dict$new(
 Prod_maille <-Dict$new(
     region = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_region_clean2.RDS"),
     departement = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//nvx_jdd//prod_departement_clean2.RDS"),
-    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prods_commune_clean2.RDS")
+    commune = readRDS("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//projetR//prod_commune_clean.RDS")
 )
 
 #Input choices : 
@@ -230,7 +230,6 @@ server <- function(session,input, output) {
     )
     traceback()
   # à faire: 
-  #  estetique
   #  cree les deux onglets (tab)
   #  collectivité moyenne france ???
 }
