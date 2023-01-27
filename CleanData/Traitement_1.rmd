@@ -30,7 +30,7 @@ saveRDS(conso_commune, "conso_commune_clean.RDS")
 
 1-2 departement:
 ```{r}
-conso_departement<-read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//consommation-electrique-par-secteur-dactivite-departement-2.csv",sep = ";",encoding = "UTF-8")
+conso_departement<-read.csv(paste0(path,"consommation-electrique-par-secteur-dactivite-departement-2.csv"),sep = ";",encoding = "UTF-8")
 conso_departement_t <- conso_departement[c(1,3,2,5,4,7,10,11)]
 
 
