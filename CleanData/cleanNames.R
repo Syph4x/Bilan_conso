@@ -1,3 +1,5 @@
+library(stringr)
+
 cleanNames <- function(x) {
   if (is.data.frame(x)) {
     cn <- colnames(x)
