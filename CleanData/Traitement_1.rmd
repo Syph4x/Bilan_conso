@@ -14,19 +14,18 @@ library(dplyr)
 source("cleanNames.R")
 ```
 
+```{r}
+#chemin
+path <- "C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//"
+```
 
-
-
-1) importation des données: 
 
 1-1 communes :
 ```{r}
-conso_commune <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//conso-commune.csv",sep = ";",encoding = "UTF-8")
+conso_commune <- read.csv(paste0(path,"conso-commune.csv"),sep = ";",encoding = "UTF-8")
 conso_commune <- conso_commune[c(1,3,2,8,7,10,9,12,15,16)]
 conso_commune <- cleanNames(conso_commune)
-saveRDS(conso_commune, "conso_commune_clean1.RDS")
-
-
+saveRDS(conso_commune, "conso_commune_clean.RDS")
 ```
 
 1-2 departement:
@@ -36,35 +35,36 @@ conso_departement_t <- conso_departement[c(1,3,2,5,4,7,10,11)]
 
 
 conso_departement_t<- cleanNames(conso_departement_t)
-saveRDS(conso_departement_t, "conso_departement_clean1.RDS")
+saveRDS(conso_departement_t, "conso_departement_clean.RDS")
 
 
 ```
 
 1-3 Regions : 
 ```{r}
-conso_region<-read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//consommation-electrique-par-secteur-dactivite-region.csv",sep = ";",encoding = "UTF-8")
+conso_region<-read.csv(paste0(path,"consommation-electrique-par-secteur-dactivite-region.csv"),sep = ";",encoding = "UTF-8") 
 
 conso_region_t<-conso_region[c(1,3,2,5,8,9)]
 conso_region_t <- cleanNames(conso_region_t)
-saveRDS(conso_region_t, "conso_region_clean1.RDS")
+saveRDS(conso_region_t, "conso_region_clean.RDS")
 
 
 ```
 
 
 
-2- production:
+3 - production:
 
 2-1 prod commune
 
 ```{r}
-prod_commune <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-commune.csv",sep = ";",encoding = "UTF-8")
+prod_commune <- read.csv(paste0(path,"production-electrique-par-filiere-a-la-maille-commune.csv"),sep = ";",encoding = "UTF-8")
 prod_commune<-cleanNames(prod_commune)
 
 ```
 
 Traitement pour avoir la production toatle:
+
 ```{r}
 prod_commune_large <- prod_commune
 prods_c <- prod_commune_large %>%
@@ -80,14 +80,14 @@ prods_c <- prod_commune_large %>%
 ```
 
 ```{r}
-# save prods_commune:
-saveRDS(prods_c, "prods_commune_clean1.RDS")
+#save prods_commune:
+saveRDS(prods_c, "prods_commune_clean.RDS")
 
 
 ```
 2-2 prod departement :
 ```{r}
-prod_departement <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-departement-2.csv",sep = ";",encoding = "UTF-8")
+prod_departement <- read.csv(paste0(path,"production-electrique-par-filiere-a-la-maille-departement-2.csv"),sep = ";",encoding = "UTF-8")
 prod_departement <- cleanNames(prod_departement)
 
 
@@ -110,13 +110,13 @@ prods_d <- prod_departement_large %>%
 
 ```{r}
 #save
-saveRDS(prods_d, "prods_departement_clean1.RDS")
+saveRDS(prods_d, "prods_departement_clean.RDS")
 
 ```
 
 2-3 production region : 
 ```{r}
-prod_region <- read.csv("C://Users//sguest//Desktop//projet R avance//jeu de donnee//Tables de donnees Conso//production-electrique-par-filiere-a-la-maille-region.csv",sep = ";",encoding = "UTF-8")
+prod_region <- read.csv(paste0(path,"production-electrique-par-filiere-a-la-maille-region.csv"),sep = ";",encoding = "UTF-8")
 prod_region <- cleanNames(prod_region)
 
 ```
@@ -138,7 +138,6 @@ prods_r <- prod_region_large %>%
 
 ```{r}
 #save
-saveRDS(prods_r, "prods_region_clean1.RDS")
+saveRDS(prods_r, "prods_region_clean.RDS")
 
 ```
-
