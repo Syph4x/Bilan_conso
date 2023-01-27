@@ -20,7 +20,7 @@ https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dacti
     - Soit telecharger les données traitées (RDS) via ce lien: 
     https://mega.nz/folder/IipCWYAA#j8qggCcNp56fbRqBlL445A
     
-    - Soit telecharger les csv  et lancé les deux scripte (Traitement_1 ensuite Traitement_2 )  ( qui prennent du temps a complier )
+    - Soit telecharger les csv  et lancer les deux scripte (Traitement_1 ensuite Traitement_2 )  ( qui prennent du temps a complier )
     
 
 2) Lancer le script Bilan_Conso_vo.R
