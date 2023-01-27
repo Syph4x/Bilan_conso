@@ -79,13 +79,13 @@ commune_p["nom_commune"] <- nom_commune_p
 
 3 -enregistrement:
 ```{r}
-saveRDS(commune_c , "conso_commune_clean.RDS")
-saveRDS(departement_c, "conso_departemnt_clean.RDS")
-saveRDS(region_c, "conso_region_clean.RDS")
+saveRDS(commune_c , "conso_commune_clean2.RDS")
+saveRDS(departement_c, "conso_departemnt_clean2.RDS")
+saveRDS(region_c, "conso_region_clean2.RDS")
 
-saveRDS(commune_p, "prod_commune_clean.RDS")
-saveRDS(departement_p, "prod_departement_clean.RDS")
-saveRDS(region_p, "prod_region_clean.RDS")
+saveRDS(commune_p, "prod_commune_clean2.RDS")
+saveRDS(departement_p, "prod_departement_clean2.RDS")
+saveRDS(region_p, "prod_region_clean2.RDS")
 
 ```
 
