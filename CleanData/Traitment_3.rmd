@@ -1,0 +1,160 @@
+---
+title: "test_moyenne"
+author: "Bourennani Syphax"
+date: "2023-01-27"
+output: html_document
+---
+
+```{r}
+
+conso_region<-readRDS("conso_region_clean2.Rds")
+conso_departement<-readRDS("conso_departemnt_clean2.RDS")
+conso_commune <-readRDS("conso_commune_clean2.RDS")
+
+prod_region<-readRDS("prod_region_clean2.Rds")
+prod_departement<-readRDS("prod_departement_clean2.RDS")
+prod_commune <-readRDS("prod_commune_clean2.RDS")
+
+```
+
+# Moyenne France
+```{r}
+moy_region_pord <- prod_region %>% group_by(annee, type) %>%
+  summarise(prod_mwh = mean(prod_mwh, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_region=0, nom_region="Moyenne France")
+
+prod_region <- bind_rows(prod_region, moy_region_pord)
+```
+
+```{r}
+moy_departement_pord <- prod_departement %>% group_by(annee, type) %>%
+  summarise(prod_mwh = mean(prod_mwh, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_departement=0, nom_departement="Moyenne France")
+
+prod_departement <- bind_rows(prod_departement, moy_departement_pord)
+```
+
+```{r}
+moy_commune_pord <- prod_commune %>% group_by(annee, type) %>%
+  summarise(prod_mwh = mean(prod_mwh, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_commune=0, nom_commune="Moyenne France")
+
+prod_commune <- bind_rows(prod_commune, moy_commune_pord)
+```
+
+```{r}
+moy_region_conso <- conso_region %>% group_by(annee, code_grand_secteur) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_region=0, nom_region="Moyenne France")
+
+conso_region <- bind_rows(conso_region, moy_region_conso)
+```
+
+```{r}
+moy_departement_conso <- conso_departement %>% group_by(annee, code_grand_secteur) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_departement=0, nom_departement="Moyenne France")
+
+conso_departement <- bind_rows(conso_departement, moy_departement_conso)
+  
+```
+
+```{r}
+moy_commune_conso <- conso_commune %>% group_by(annee, code_grand_secteur) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            .groups = 'drop') %>% mutate(code_commune=0, nom_commune="Moyenne France")
+
+conso_commune <- bind_rows(conso_commune, moy_commune_conso)
+```
+
+#  moyennes régionales et départementales 
+```{r}
+moy_departement_prod <- na.omit(prod_departement) %>% group_by(annee, type, code_region) %>%
+  summarise(prod_mwh = mean(prod_mwh, na.rm = TRUE),
+            nom_region = first(nom_region),
+            .groups = 'drop')
+moy_departement_prod["code_departement"] <- moy_departement_prod$code_region * 10000000
+moy_departement_prod["nom_departement"] <- paste("Moyenne",moy_departement_prod$nom_region)
+
+prod_departement <- bind_rows(prod_departement, moy_departement_prod)
+```
+
+```{r}
+moy_commune_prod1 <- na.omit(prod_commune) %>% group_by(annee, type, code_region) %>%
+  summarise(prod_mwh= mean(prod_mwh, na.rm = TRUE),
+            nom_region = first(nom_region),
+            code_departement = first(code_departement),
+            nom_departement = first(nom_departement),
+            .groups = 'drop')
+moy_commune_prod1["code_commune"] <- moy_commune_prod1$code_region * 10000
+moy_commune_prod1["nom_commune"] <- paste("Moyenne",moy_commune_prod1$nom_region)
+
+prod_commune <- bind_rows(prod_commune, moy_commune_prod1)
+```
+
+```{r}
+moy_commune_prod2 <- na.omit(prod_commune) %>% group_by(annee, type, code_departement) %>%
+  summarise(prod_mwh = mean(prod_mwh, na.rm = TRUE),
+            code_region = first(code_region),
+            nom_region = first(nom_region),
+            nom_departement = first(nom_departement),
+            .groups = 'drop')
+
+moy_commune_prod2["code_commune"] <- moy_commune_prod2$code_region * 20000
+moy_commune_prod2["nom_commune"] <- paste("Moyenne",moy_commune_prod2$nom_departement)
+
+prod_commune <- bind_rows(prod_commune, moy_commune_prod2)
+```
+
+```{r}
+moy_departement_conso <- na.omit(conso_departement) %>% group_by(annee, code_grand_secteur, code_region) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            nom_region = first(nom_region),
+            .groups = 'drop')
+moy_departement_conso["code_departement"] <- moy_departement_conso$code_region * 56000
+moy_departement_conso["nom_departement"] <- paste("Moyenne",moy_departement_conso$nom_region)
+
+conso_departement <- bind_rows(conso_departement, moy_departement_conso)
+
+```
+
+```{r}
+moy_commune1_conso1 <- na.omit(conso_commune) %>% group_by(annee, code_grand_secteur, code_region) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            nom_region = first(nom_region),
+            code_departement = first(code_departement),
+            nom_departement = first(nom_departement),
+            .groups = 'drop')
+
+moy_commune1_conso1["code_commune"] <- moy_commune1_conso1$code_region * 100000
+moy_commune1_conso1["nom_commune"] <- paste("Moyenne",moy_commune1_conso1$nom_region)
+
+conso_commune <- bind_rows(conso_commune, moy_commune1_conso1)
+```
+
+```{r}
+moy_commune_conso2 <- na.omit(conso_commune) %>% group_by(annee, code_grand_secteur, code_departement) %>%
+  summarise(conso_totale__mwh_ = mean(conso_totale__mwh_, na.rm = TRUE),
+            code_region = first(code_region),
+            nom_region = first(nom_region),
+            nom_departement = first(nom_departement),
+            .groups = 'drop')
+
+moy_commune_conso2["code_commune"] <- moy_commune_conso2$code_region * 200000
+moy_commune_conso2["nom_commune"] <- paste("Moyenne",moy_commune_conso2$nom_departement)
+
+conso_commune <- bind_rows(conso_commune, moy_commune_conso2)
+```
+3 -enregistrement:
+```{r}
+
+
+saveRDS(conso_commune , "conso_commune_clean3.RDS")
+saveRDS(conso_departement, "conso_departemnt_clean3.RDS")
+saveRDS(conso_region, "conso_region_clean3.RDS")
+
+saveRDS(prod_commune, "prod_commune_clean3.RDS")
+saveRDS(prod_departement, "prod_departement_clean3.RDS")
+saveRDS(prod_region, "prod_region_clean3.RDS")
+
+```
