@@ -1,6 +1,11 @@
 # Bilan_conso
+On construit un shiny qui permet de visualiser le bilan électrique (consommation et
+production locale) à une maille locale à partir des données Enedis au pas annuelle et
+de comparer plusieurs collectivités. Les mailles pourront être des régions, des
+départements ou des communes.
 
-Lien pour télécharger les jeux de données en CSV !!!:
+
+Lien pour télécharger les jeux de données en CSV :)
 
 Production:
 
@@ -26,4 +31,3 @@ https://data.enedis.fr/explore/dataset/consommation-electrique-par-secteur-dacti
 2) Lancer le script Bilan_Conso_vo.R
 
 
-Fait par Charline Ikram et Syphax
