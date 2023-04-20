@@ -1,8 +1,5 @@
 # Bilan_conso
-On construit un shiny qui permet de visualiser le bilan électrique (consommation et
-production locale) à une maille locale à partir des données Enedis au pas annuelle et
-de comparer plusieurs collectivités. Les mailles pourront être des régions, des
-départements ou des communes.
+l'objecrif du projet est de  construir un shiny qui permet de visualiser le bilan électrique (consommation et production locale) à une maille locale à partir des données Enedis au pas annuelle et de comparer plusieurs collectivités. Les mailles pourront être des régions, des départements ou des communes.
 
 
 Lien pour télécharger les jeux de données en CSV :)
